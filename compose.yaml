@@ -1,0 +1,70 @@
+services:
+    web:
+        container_name: raizuma-web
+        build:
+            context: ./apps/web
+            dockerfile: ./Dockerfile
+        networks:
+            - raizuma-network
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+        restart: unless-stopped
+    api:
+        container_name: raizuma-api
+        build:
+            context: ./apps/api
+            dockerfile: ./Dockerfile
+        networks:
+            - raizuma-network
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+        restart: unless-stopped
+    auth:
+        container_name: raizuma-auth
+        build:
+            context: ./apps/auth
+            dockerfile: ./Dockerfile
+        networks:
+            - raizuma-network
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+        restart: unless-stopped
+    account:
+        container_name: raizuma-account
+        build:
+            context: ./apps/account
+            dockerfile: ./Dockerfile
+        networks:
+            - raizuma-network
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+        restart: unless-stopped
+    admin:
+        container_name: raizuma-admin
+        build:
+            context: ./apps/admin
+            dockerfile: ./Dockerfile
+        networks:
+            - raizuma-network
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+        restart: unless-stopped
+
+networks:
+    raizuma-network:
+        driver: bridge
