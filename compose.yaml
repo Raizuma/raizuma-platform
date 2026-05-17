@@ -83,6 +83,6 @@ services:
 
 networks:
     raizuma-network:
-        driver: bridge
+        external: true
     internal-network:
         driver: bridge
