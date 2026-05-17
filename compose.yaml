@@ -1,11 +1,27 @@
 services:
+    proxy:
+        container_name: raizuma-proxy
+        build:
+            context: ./apps/proxy
+            dockerfile: ./Dockerfile
+        ports:
+            - "8080:8080"
+        networks:
+            - raizuma-network
+            - internal-network
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+        restart: unless-stopped
     web:
         container_name: raizuma-web
         build:
             context: ./apps/web
             dockerfile: ./Dockerfile
         networks:
-            - raizuma-network
+            - internal-network
         logging:
             driver: "json-file"
             options:
@@ -18,7 +34,7 @@ services:
             context: ./apps/api
             dockerfile: ./Dockerfile
         networks:
-            - raizuma-network
+            - internal-network
         logging:
             driver: "json-file"
             options:
@@ -31,7 +47,7 @@ services:
             context: ./apps/auth
             dockerfile: ./Dockerfile
         networks:
-            - raizuma-network
+            - internal-network
         logging:
             driver: "json-file"
             options:
@@ -44,7 +60,7 @@ services:
             context: ./apps/account
             dockerfile: ./Dockerfile
         networks:
-            - raizuma-network
+            - internal-network
         logging:
             driver: "json-file"
             options:
@@ -57,7 +73,7 @@ services:
             context: ./apps/admin
             dockerfile: ./Dockerfile
         networks:
-            - raizuma-network
+            - internal-network
         logging:
             driver: "json-file"
             options:
@@ -67,4 +83,6 @@ services:
 
 networks:
     raizuma-network:
+        driver: bridge
+    internal-network:
         driver: bridge
